@@ -1,0 +1,157 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,900&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* not gallery as box has seven children*/
+.box:nth-child(1){
+    background-image: url(https://images.unsplash.com/photo-1433086966358-54859d0ed716?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80);
+}
+.box:nth-child(2){
+    background-image: url(https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1574&q=80);
+}
+.box:nth-child(3){
+    background-image: url(https://images.unsplash.com/photo-1497449493050-aad1e7cad165?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1065&q=80);
+}
+.box:nth-child(4){  
+    background-image: url(https://images.unsplash.com/photo-1518173946687-a4c8892bbd9f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80);
+}
+.box:nth-child(5){
+    background-image: url(https://images.unsplash.com/photo-1426604966848-d7adac402bff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80);
+}
+.box:nth-child(6){
+    background-image: url(https://images.unsplash.com/photo-1446329813274-7c9036bd9a1f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80);
+}
+.box:nth-child(7){
+    background-image: url(https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2073&q=80);
+}
+
+
+body{
+    font-family: "Bodoni Moda", serif;
+    font-size: 1.2rem;
+}
+
+
+.container{
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(to right, #041308, #0b3317);
+
+}
+
+.left-text{
+    flex-basis: 30%;    /*width will be set since flex-direction is row */
+}
+
+.heading{
+    font-size: 3rem;
+    color: white;
+    text-align: center;
+}
+
+.sub-heading{
+    color: #ddd;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.gallery{
+    flex-basis: 50%;
+    display: grid;
+    gap: 8px;
+
+    grid-template-columns: repeat(3,1fr);
+    grid-auto-rows: 120px;
+}
+
+.box{
+    background-size: cover;
+    background-position: top;      /*This is because while we set the background-size: cover we cut the sides of image to fit the aspect ration hence background-position helps us to choose which part of the image we want to fit the aspect ratio and which part to cut*/
+    /* Here we will use it to first set the top position and then transition it to bottom position */
+    color: white;
+    display: flex;   /*To make the test come to the center*/
+    justify-content: center;
+    align-items: center;
+
+
+    /* How to bring overlay to the image -->
+    1) make a div equal to the image size and set its trasperency (we already studied earlier)
+    2) Use gradient like we made in other website but that overlay will not be evenly throughout the image
+    3) Use blend mode   (for that we need two backgrounds)
+    black one in bottom
+    */
+
+
+    background-color: #222;   /*helps to blend the image to provide overlay*/
+    background-blend-mode: hard-light;
+    transition: all 1s ease-in-out;       /*how does the element change its property
+    
+    all -> means all part of the element (else width and height can also be used)
+    1s ->  means in 1s the transition must be complete 
+    ease-in-out --> (animation curve) means the type of transition that will occur
+    */
+
+    box-shadow: 0 0 4px #fff;
+
+    /* 0 -> horizontal
+       0 -> vertical 
+       4px -> blur
+       color -> white
+       */
+
+    cursor: pointer;
+
+}
+
+/* Now either we select the ids of different properties and apply how much they would merge but here we would use utility class */
+
+.row-2{
+    grid-row: span 2;
+}
+
+.col-2{
+    grid-column: span 2;
+}
+
+
+.box:hover{        /*pseudo selector helps us to change the hover state of an element and style it differently*/
+   background-color: #999;
+   background-position: center
+
+}
+
+
+
+/* media query for width <= 1024px */
+
+@media screen and (max-width: 1024px){
+    
+    .container{
+        flex-direction: column;  /*so that the left heading and gallery come in one line */
+        padding-block: 30px;  /* padding from top and bottom */
+
+        .gallery{
+            width: 90%;
+            padding-inline: 12px;
+            grid-auto-rows: 220px;
+         }
+
+        .box{
+            grid-row: span 1;
+            grid-column: span 3;    /*to take the place of two columns so that 1 column in one row*/
+        }
+
+        .sub-heading{
+            margin-block: 10px 40px;
+        }
+    }
+
+
+}
